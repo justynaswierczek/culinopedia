@@ -1,1 +1,1 @@
-# smakopedia
+# Smakopedia
