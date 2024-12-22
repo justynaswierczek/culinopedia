@@ -6,8 +6,10 @@ import Card from "./components/Card";
 
 export default function Page() {
   const [recipes, setRecipes] = useState([]);
-  const [name, setName] = useState("Chicken");
+  const [name, setName] = useState("Beef");
   const [loading, setLoading] = useState(false);
+  const [currentPage, setCurrentPage] = useState(1);
+  const recipesPerPage = 6; // Liczba przepisów na stronę
 
   // Funkcja wyszukiwania przepisów po nazwie
   const searchRecipesByName = async (search) => {
@@ -18,7 +20,8 @@ export default function Page() {
         throw new Error("Something went wrong");
       }
       const result = await res.json();
-      setRecipes(result?.meals || []); // Ustaw wynik lub pustą tablicę, jeśli brak wyników
+      setRecipes(result?.meals || []); // Aktualizacja wyników wyszukiwania
+      setCurrentPage(1); // Resetowanie strony na pierwszą
     } catch (err) {
       console.error(err);
     } finally {
@@ -27,7 +30,7 @@ export default function Page() {
   };
 
   useEffect(() => {
-    // Funkcja wyszukiwania przepisów na podstawie wybranej kategorii
+    // Funkcja pobierania przepisów na podstawie kategorii
     const fetchRecipes = async () => {
       try {
         setLoading(true);
@@ -37,6 +40,7 @@ export default function Page() {
         }
         const result = await res.json();
         setRecipes(result?.meals || []);
+        setCurrentPage(1); // Resetowanie strony na pierwszą po zmianie kategorii
       } catch (err) {
         console.error(err);
       } finally {
@@ -47,23 +51,46 @@ export default function Page() {
     fetchRecipes();
   }, [name]);
 
-  console.log(recipes);
+  // Oblicz indeksy dla obecnej strony
+  const indexOfLastRecipe = currentPage * recipesPerPage;
+  const indexOfFirstRecipe = indexOfLastRecipe - recipesPerPage;
+  const currentRecipes = recipes.slice(indexOfFirstRecipe, indexOfLastRecipe);
+
+  // Zmiana strony
+  const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
   return (
     <div>
       <Header />
       <Search setName={setName} searchRecipesByName={searchRecipesByName} />
       <div className="flex items-center justify-center p-10">
-        {/* Warunki renderowania */}
-        {!loading && recipes?.length === 0 ? (
-          <h1 className="text-center text-3xl">No recipes found</h1>
-        ) : loading ? (
+        {loading ? (
           <h1 className="text-center text-3xl">Loading...</h1>
+        ) : currentRecipes.length === 0 ? (
+          <h1 className="text-center text-3xl">No recipes found</h1>
         ) : (
-          <div className="flex flex-wrap flex-col lg:flex-row items-center gap-5">
-            {recipes?.map((recipe) => (
-              <Card key={recipe?.idMeal} recipe={recipe} />
-            ))}
+          <div>
+            {/* Lista przepisów */}
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+              {currentRecipes.map((recipe) => (
+                <Card key={recipe?.idMeal} recipe={recipe} />
+              ))}
+            </div>
+
+            {/* Paginacja */}
+            <div className="flex justify-center mt-8">
+              {Array.from({ length: Math.ceil(recipes.length / recipesPerPage) }, (_, index) => (
+                <button
+                  key={index}
+                  onClick={() => paginate(index + 1)}
+                  className={`mx-1 px-4 py-2 rounded ${
+                    currentPage === index + 1 ? "bg-blue-500 text-white" : "bg-gray-300 text-black"
+                  }`}
+                >
+                  {index + 1}
+                </button>
+              ))}
+            </div>
           </div>
         )}
       </div>
