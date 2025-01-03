@@ -3,13 +3,16 @@ import Link from "next/link";
 import React from "react";
 
 function Card({ recipe }) {
+  // Wyświetlenie adresu URL obrazka w konsoli
+  console.log("Image URL:", recipe?.strMealThumb);
+
   return (
     <Link href={`/recipes/${recipe?.idMeal}`} passHref>
       <div className="max-w-xs w-full border-2 border-gray-300 rounded-lg shadow-lg overflow-hidden cursor-pointer">
         <div className="flex items-center justify-center bg-gray-200 aspect-square">
           {recipe?.strMealThumb ? (
             <Image
-              src={recipe.strMealThumb}
+              src={recipe.strMealThumb }
               alt="meal image"
               width={350}
               height={200}
