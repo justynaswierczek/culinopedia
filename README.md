@@ -16,14 +16,12 @@
 
 ### ⭐ Ocenianie przepisów
 - Każdy przepis może być oceniony przez użytkownika
-- Oceny są przechowywane lokalnie w **LocalStorage**
 
 ### 🌙 Tryb ciemny
 - Możesz włączyć tryb ciemny, aby korzystać z aplikacji w bardziej komfortowych warunkach w nocy
 
 ### ✏️ Dodawanie własnych przepisów
-- Użytkownicy mogą dodawać własne przepisy
-- Dodane przepisy są zapisywane lokalnie w przeglądarce za pomocą **LocalStorage**
+- Użytkownicy mogą dodawać własne przepisy, a następnie je edytować, bądź usuwać
 
 ## Technologie
 - **Next.js**: Framework dla aplikacji frontendowej
