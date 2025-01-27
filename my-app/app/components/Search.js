@@ -4,14 +4,16 @@ import React, { useState } from "react";
 function Search({ setName, searchRecipesByName }) {
   const [categories, setCategories] = useState("Beef");
   const [search, setSearch] = useState("");
-  const suggestions = ["Chicken", "Beef", "Lamb", "Pork", "Seafood", "Vegan","Bigos","Burgers","Salad","Risotto",
-    "Curry","Pizza","Tacos","Tarts","Battenberg Cake","Pancakes","Fish","Soup","Sushi"
-    
-  ]; // Lista podpowiedzi
+  const suggestions = [
+    "Chicken", "Beef", "Lamb", "Pork", "Seafood", "Vegan",
+    "Bigos", "Burgers", "Salad", "Risotto", "Curry", "Pizza", 
+    "Tacos", "Tarts", "Battenberg Cake", "Pancakes", "Fish", 
+    "Soup", "Sushi"
+  ];
 
   const handleSuggestionClick = (suggestion) => {
-    setSearch(suggestion); // Ustaw podpowiedź jako wpisaną wartość
-    searchRecipesByName(suggestion); // Wykonaj wyszukiwanie
+    setSearch(suggestion);
+    searchRecipesByName(suggestion);
   };
 
   return (
@@ -21,9 +23,12 @@ function Search({ setName, searchRecipesByName }) {
         value={categories}
         onChange={(e) => {
           setCategories(e.target.value);
-          setName(e.target.value); // Zmiana kategorii w stanie nadrzędnym
+          setName(e.target.value);
         }}
-        className="border-2 border-gray-300 bg-white h-10 px-5 pr-16 rounded-lg text-sm focus:outline-none"
+        className="
+          border-2 border-gray-300 bg-white h-10 px-5 pr-16 rounded-lg text-sm focus:outline-none
+          dark:bg-gray-800 dark:text-white dark:border-gray-600
+        "
       >
         <option value="Beef">Beef</option>
         <option value="Chicken">Chicken</option>
@@ -34,28 +39,45 @@ function Search({ setName, searchRecipesByName }) {
       </select>
 
       {/* Napis OR */}
-      <h1 className="text-xl font-semibold text-gray-500">OR</h1>
+      <h1 className="text-xl font-semibold text-gray-500 dark:text-gray-300">
+        OR
+      </h1>
 
-      {/* Pole wyszukiwania */}
+      {/* Pole wyszukiwania + lista podpowiedzi */}
       <div className="relative w-full max-w-lg">
         <input
           value={search}
           onChange={(e) => setSearch(e.target.value)}
-          className="border-2 border-gray-300 bg-white h-10 px-5 pr-16 rounded-lg text-sm focus:outline-none w-full"
+          className="
+            border-2 border-gray-300 bg-white h-10 px-5 pr-16 rounded-lg text-sm 
+            focus:outline-none w-full placeholder-gray-400
+            dark:bg-gray-800 dark:text-white dark:border-gray-600
+            dark:placeholder-gray-500
+          "
           type="text"
           placeholder="Search for a recipe"
         />
 
-        {/* Lista podpowiedzi */}
         {search && (
-          <ul className="absolute top-12 left-0 bg-white border border-gray-300 rounded-lg w-full shadow-md z-10">
+          <ul
+            className="
+              absolute top-12 left-0 w-full z-10
+              bg-white border border-gray-300 rounded-lg shadow-md
+              dark:bg-gray-800 dark:border-gray-600
+            "
+          >
             {suggestions
-              .filter((item) => item.toLowerCase().includes(search.toLowerCase())) // Filtrowanie pasujących podpowiedzi
+              .filter((item) =>
+                item.toLowerCase().includes(search.toLowerCase())
+              )
               .map((item, index) => (
                 <li
                   key={index}
-                  onClick={() => handleSuggestionClick(item)} // Obsługa kliknięcia w podpowiedź
-                  className="px-4 py-2 hover:bg-gray-200 cursor-pointer"
+                  onClick={() => handleSuggestionClick(item)}
+                  className="
+                    px-4 py-2 cursor-pointer 
+                    hover:bg-gray-200 dark:hover:bg-gray-700
+                  "
                 >
                   {item}
                 </li>
@@ -66,8 +88,11 @@ function Search({ setName, searchRecipesByName }) {
 
       {/* Przycisk wyszukiwania */}
       <button
-        onClick={() => searchRecipesByName(search)} // Wywołanie funkcji przekazanej z `Page.js`
-        className="bg-black hover:bg-green-700 text-white font-bold py-2 px-4 rounded"
+        onClick={() => searchRecipesByName(search)}
+        className="
+          bg-black hover:bg-green-700 text-white font-bold py-2 px-4 rounded
+          dark:bg-gray-300 dark:text-black
+        "
       >
         Search
       </button>
