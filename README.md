@@ -1,7 +1,8 @@
 # Culinopedia - Książka Kucharska
 
-**Culinopedia** jest to interaktywna aplikacja książki kucharskiej, która umożliwia odkrywanie przepisów, zarządzanie ulubionymi oraz ocenianie przepisów w wygodnym i nowoczesnym interfejsie.
 
+![Zrzut ekranu 2025-01-28 010307](https://github.com/user-attachments/assets/11c4e7bb-1cf9-4145-bcf1-a3524c2c339c)
+**Culinopedia** jest to interaktywna aplikacja książki kucharskiej, która umożliwia odkrywanie przepisów, zarządzanie ulubionymi oraz ocenianie przepisów w wygodnym i nowoczesnym interfejsie.
 ## Funkcjonalności
 
 ### 🌟 Przepisy i wyszukiwanie
