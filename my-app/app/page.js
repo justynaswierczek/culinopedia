@@ -11,7 +11,7 @@ export default function Page() {
   const [name, setName] = useState("Beef"); // Domyślna kategoria
   const [loading, setLoading] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
-  const recipesPerPage = 6;
+  const recipesPerPage = 12;
 
   // Wyszukiwanie przepisów po nazwie
   const searchRecipesByName = async (search) => {
@@ -91,52 +91,6 @@ export default function Page() {
       {/* Wyszukiwarka */}
       <Search setName={setName} searchRecipesByName={searchRecipesByName} />
 
-      {/* Formularz edycji */}
-      {editingRecipe && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50">
-          <div className="bg-white dark:bg-gray-800 p-6 rounded shadow-lg w-96">
-            <h2 className="text-2xl font-semibold mb-4">Edit Recipe</h2>
-            <form
-              onSubmit={(e) => {
-                e.preventDefault();
-                saveEditedRecipe(editingRecipe);
-              }}
-            >
-              <div className="mb-4">
-                <label className="block font-semibold mb-2">Name</label>
-                <input
-                  type="text"
-                  value={editingRecipe.name}
-                  onChange={(e) =>
-                    setEditingRecipe({
-                      ...editingRecipe,
-                      name: e.target.value,
-                    })
-                  }
-                  className="w-full p-2 border border-gray-300 rounded"
-                  required
-                />
-              </div>
-              <div className="flex justify-end gap-4">
-                <button
-                  type="button"
-                  onClick={() => setEditingRecipe(null)}
-                  className="bg-gray-500 text-white px-3 py-1 rounded hover:bg-gray-700"
-                >
-                  Cancel
-                </button>
-                <button
-                  type="submit"
-                  className="bg-blue-500 text-white px-3 py-1 rounded hover:bg-blue-700"
-                >
-                  Save
-                </button>
-              </div>
-            </form>
-          </div>
-        </div>
-      )}
-
       {/* Sekcja: Moje przepisy */}
       <div className="container mx-auto my-10">
         {userRecipes.length > 0 && (
@@ -144,7 +98,7 @@ export default function Page() {
             <h2 className="text-2xl font-semibold text-center mb-6">
               My Recipes
             </h2>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
               {userRecipes.map((recipe, index) => (
                 <Card
                   key={`user-${index}`}
@@ -161,7 +115,7 @@ export default function Page() {
       {/* Sekcja: Przepisy z API */}
       <div className="container mx-auto my-10">
         <h2 className="text-2xl font-semibold text-center mb-6">
-          Recipes from API
+          Discover Recipes
         </h2>
         {loading ? (
           <h1 className="text-center text-3xl text-gray-500 dark:text-gray-300">
@@ -174,12 +128,9 @@ export default function Page() {
         ) : (
           <div>
             {/* Lista przepisów */}
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
               {currentRecipes.map((recipe) => (
-                <Card
-                  key={recipe?.idMeal}
-                  recipe={recipe}
-                />
+                <Card key={recipe?.idMeal} recipe={recipe} />
               ))}
             </div>
 
@@ -191,9 +142,9 @@ export default function Page() {
                   <button
                     key={index}
                     onClick={() => paginate(index + 1)}
-                    className={`mx-1 px-4 py-2 rounded transition-colors duration-200 ${
+                    className={`mx-2 w-10 h-10 flex items-center justify-center rounded-full text-sm font-semibold transition-colors duration-200 ${
                       currentPage === index + 1
-                        ? "bg-blue-500 text-white dark:bg-blue-700"
+                        ? "bg-[#F3CD68] text-white dark:bg-blue-700"
                         : "bg-gray-300 text-black dark:bg-gray-700 dark:text-white"
                     }`}
                   >
@@ -208,3 +159,5 @@ export default function Page() {
     </div>
   );
 }
+
+

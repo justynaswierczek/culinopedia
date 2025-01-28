@@ -90,10 +90,14 @@ function Search({ setName, searchRecipesByName }) {
       <button
         onClick={() => searchRecipesByName(search)}
         className="
-          bg-black hover:bg-green-700 text-white font-bold py-2 px-4 rounded
-          dark:bg-gray-300 dark:text-black
+          flex items-center justify-center
+          px-8 py-3 rounded-full text-lg font-semibold text-white
+          bg-[#D5A922] hover:bg-[#F3CD68]
+          transition-all transform hover:scale-105 shadow-md
+          focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#FDF9EE]
         "
       >
+
         Search
       </button>
     </div>

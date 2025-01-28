@@ -49,19 +49,18 @@ function Card({ recipe, onEdit, onDelete }) {
   };
 
   return (
-    <div className="max-w-xs w-full border-2 border-gray-300 rounded-lg shadow-lg overflow-hidden cursor-pointer relative">
-      {/* Link do szczegółów przepisu */}
+    <div className="relative group max-w-xs w-full bg-white rounded-xl shadow-md hover:shadow-lg overflow-hidden transition-shadow duration-300 cursor-pointer">
       <Link href={`/recipes/${recipe?.idMeal || recipe?.id}`}>
-        <div className="flex items-center justify-center bg-gray-200 aspect-square">
+        <div className="flex items-center justify-center bg-gray-200 dark:bg-gray-800 aspect-square">
           <Image
             src={recipe?.image || recipe?.strMealThumb || "/placeholder-image.jpg"}
             alt={recipe?.name || recipe?.strMeal || "Meal Image"}
-            width={350}
-            height={200}
+            width={400}
+            height={300}
             className="object-cover"
           />
         </div>
-        <h2 className="text-center text-lg font-semibold p-4">
+        <h2 className="text-center text-lg font-semibold p-4 truncate">
           {recipe?.name || recipe?.strMeal}
         </h2>
       </Link>
@@ -73,7 +72,7 @@ function Card({ recipe, onEdit, onDelete }) {
           toggleFavorite();
         }}
         className={`absolute top-2 right-2 text-2xl ${
-          isFavorite ? "text-red-500" : "text-gray-300"
+          isFavorite ? "text-red-500" : "text-gray-300 dark:text-gray-600"
         }`}
       >
         ♥
@@ -90,7 +89,7 @@ function Card({ recipe, onEdit, onDelete }) {
             }}
             xmlns="http://www.w3.org/2000/svg"
             className={`h-6 w-6 cursor-pointer transition-colors ${
-              star <= rating ? "fill-yellow-400" : "fill-gray-300"
+              star <= rating ? "fill-yellow-400" : "fill-gray-300 dark:fill-gray-600"
             }`}
             viewBox="0 0 20 20"
           >
@@ -99,7 +98,7 @@ function Card({ recipe, onEdit, onDelete }) {
         ))}
       </div>
 
-      {/* Przyciski edycji i usuwania (jeśli są podane propsy onEdit i onDelete) */}
+      {/* Przyciski edycji i usuwania */}
       {onEdit && onDelete && (
         <div className="flex justify-between px-4 pb-4">
           <button

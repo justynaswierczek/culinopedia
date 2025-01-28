@@ -20,16 +20,26 @@ export default function Header() {
         </h1>
 
         {/* Nawigacja */}
-        <div className="flex items-center gap-4">
+        <div className="flex items-center gap-6">
           <Link
             href="/favorites"
-            className="text-[#FDF9EE] font-bold dark:text-gray-300 hover:underline"
+            className="
+              relative text-lg font-semibold text-[#FDF9EE] 
+              after:content-[''] after:absolute after:left-0 after:-bottom-1 after:h-[2px] after:w-0 
+              after:bg-[#FDF9EE] after:transition-all after:duration-300 hover:after:w-full
+              dark:text-gray-300 dark:after:bg-gray-300
+            "
           >
             Favorites
           </Link>
           <Link
             href="/add-recipe"
-            className="text-[#FDF9EE] font-bold dark:text-gray-300 hover:underline"
+            className="
+              relative text-lg font-semibold text-[#FDF9EE] 
+              after:content-[''] after:absolute after:left-0 after:-bottom-1 after:h-[2px] after:w-0 
+              after:bg-[#FDF9EE] after:transition-all after:duration-300 hover:after:w-full
+              dark:text-gray-300 dark:after:bg-gray-300
+            "
           >
             Add Recipe
           </Link>
@@ -37,8 +47,8 @@ export default function Header() {
         </div>
       </div>
 
-      {/* Cienki pasek pod nawigacją */}
-      <div className="h-1 bg-[#FDF9EE]"></div>
+
+
     </div>
   );
 }
